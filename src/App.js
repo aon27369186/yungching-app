@@ -360,7 +360,20 @@ function ToolCopywriter() {
     const filled=Object.entries(form).filter(([k,v])=>k!=="style"&&v.trim());
     if(filled.length<3) return;
     setLoading(true); setResult(""); setCopied(false);
-    const prompt = `你是永慶不動產的專業文案撰寫師，請根據以下物件資訊，撰寫一段吸引人的房源介紹文案。\n${form.address?`地址：${form.address}`""}\n${form.type?`類型：${form.type}`:""}\n${form.area?`坪數：${form.area}`:""}\n${form.floor?`樓層：${form.floor}`:""}\n${form.price?`價格：${form.price}`:""}\n${form.features?`特色：${form.features}`:""}\n${form.nearby?`周邊：${form.nearby}`:""}\n文案風格：${form.style}（${STYLE_HINTS[form.style]}）\n請撰寫約150-250字，包含吸引眼球的標題、核心賣點、生活情境、結尾呼籲。語氣自然，符合台灣房仲用語。`;
+    const promptParts = [
+      '你是永慶不動產的專業文案撰寫師，請根據以下物件資訊，撰寫一段吸引人的房源介紹文案。',
+      form.address ? '地址：' + form.address : '',
+      form.type ? '類型：' + form.type : '',
+      form.area ? '坪數：' + form.area : '',
+      form.floor ? '樓層：' + form.floor : '',
+      form.price ? '價格：' + form.price : '',
+      form.features ? '特色：' + form.features : '',
+      form.nearby ? '周邊：' + form.nearby : '',
+      '文案風格：' + form.style + '（' + (STYLE_HINTS[form.style]||'') + '）',
+      '請撰寫約150-250字，包含吸引眼球的標題、核心賣點、生活情境、結尾呼籲。語氣自然，符合台灣房仲用語。'
+    ];
+    const prompt = promptParts.filter(Boolean).join('
+');
     try {
       const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
       const data=await res.json();
