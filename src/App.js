@@ -571,6 +571,10 @@ function ToolPPTX(props) {
       }
       setStatus("生成 PPTX...");
       var pptx = new window.PptxGenJS();
+      // Ensure shape types work in browser bundle
+      if (!pptx.ShapeType) {
+        pptx.ShapeType = { rect: "rect", oval: "ellipse" };
+      }
       pptx.defineLayout({name:"SQUARE", width:7.5, height:7.5});
       pptx.layout = "SQUARE";
       var d = data;
@@ -678,7 +682,7 @@ function ToolPPTX(props) {
 
       await pptx.writeFile({fileName: d.案名.substring(0,10).replace(/[^\u4e00-\u9fa5a-zA-Z0-9]/g, "") + "_IG貼文.pptx"});
       setStatus("✓ PPTX 已下載！");
-    } catch(e) { setStatus("發生錯誤：" + e.message); }
+    } catch(e) { console.error("PPTX Error:", e); setStatus("發生錯誤：" + (e.message || e.toString())); }
     setLoading(false);
   }
 
