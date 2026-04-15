@@ -586,12 +586,12 @@ function ToolPPTX(props) {
       s1.background = {color: CC.navy};
       if (ph0) {
         s1.addImage({data: imgD(ph0), x:0, y:0, w:7.5, h:4.8, sizing:{type:"cover", w:7.5, h:4.8}});
-        s1.addShape(pptx.ShapeType.rect, {x:0, y:0, w:7.5, h:4.8, fill:{color:CC.navy, transparency:30}});
+        s1.addShape("rect", {x:0, y:0, w:7.5, h:4.8, fill:{color:CC.navy, transparency:30}});
       }
-      s1.addShape(pptx.ShapeType.rect, {x:0.35, y:0.3, w:1.4, h:0.35, fill:{color:CC.gold}});
+      s1.addShape("rect", {x:0.35, y:0.3, w:1.4, h:0.35, fill:{color:CC.gold}});
       s1.addText("IN SALE", {x:0.35, y:0.3, w:1.4, h:0.35, fontSize:10, bold:true, color:CC.navy, align:"center", valign:"middle", margin:0});
-      s1.addShape(pptx.ShapeType.rect, {x:0, y:4.8, w:7.5, h:0.05, fill:{color:CC.gold}});
-      s1.addShape(pptx.ShapeType.rect, {x:0, y:4.85, w:7.5, h:2.65, fill:{color:CC.white}});
+      s1.addShape("rect", {x:0, y:4.8, w:7.5, h:0.05, fill:{color:CC.gold}});
+      s1.addShape("rect", {x:0, y:4.85, w:7.5, h:2.65, fill:{color:CC.white}});
       s1.addText(d.案名.substring(0,12), {x:0.35, y:5.0, w:6.5, h:0.9, fontSize:30, bold:true, color:CC.navy, fontFace:"微軟正黑體"});
       s1.addText(d.地址.substring(0,20) + "・" + d.樓層, {x:0.35, y:5.9, w:6, h:0.35, fontSize:12, color:CC.gray, fontFace:"微軟正黑體"});
       s1.addText(d.售價, {x:0.35, y:6.35, w:4, h:0.7, fontSize:26, bold:true, color:CC.navy, fontFace:"微軟正黑體"});
@@ -602,9 +602,9 @@ function ToolPPTX(props) {
       s2.background = {color: CC.navy};
       if (ph1) {
         s2.addImage({data: imgD(ph1), x:0, y:0, w:7.5, h:7.5, sizing:{type:"cover", w:7.5, h:7.5}});
-        s2.addShape(pptx.ShapeType.rect, {x:0, y:0, w:7.5, h:7.5, fill:{color:"000000", transparency:45}});
+        s2.addShape("rect", {x:0, y:0, w:7.5, h:7.5, fill:{color:"000000", transparency:45}});
       }
-      s2.addShape(pptx.ShapeType.oval, {x:0.3, y:6.1, w:0.22, h:0.22, fill:{color:CC.gold}});
+      s2.addShape("ellipse", {x:0.3, y:6.1, w:0.22, h:0.22, fill:{color:CC.gold}});
       s2.addText(q, {x:0.65, y:6.0, w:6.5, h:0.7, fontSize:15, color:CC.white, fontFace:"微軟正黑體", italic:true});
       s2.addText("02 / 06", {x:6.5, y:7.1, w:0.9, h:0.3, fontSize:10, color:CC.gold, align:"right"});
 
@@ -613,7 +613,7 @@ function ToolPPTX(props) {
       s3.background = {color: CC.white};
       s3.addText("物件規格", {x:0.35, y:0.25, w:4, h:0.55, fontSize:24, bold:true, color:CC.navy, fontFace:"微軟正黑體"});
       s3.addText("03 / 06", {x:6.3, y:0.25, w:0.9, h:0.55, fontSize:11, color:CC.gold, align:"right"});
-      s3.addShape(pptx.ShapeType.rect, {x:0.35, y:0.85, w:6.8, h:0.04, fill:{color:CC.gold}});
+      s3.addShape("rect", {x:0.35, y:0.85, w:6.8, h:0.04, fill:{color:CC.gold}});
       var specs = [
         {label:"格局", value:d.格局}, {label:"坪數", value:d.主建 + " 坪"},
         {label:"樓層", value:d.樓層}, {label:"屋齡", value:d.屋齡 + " 年"},
@@ -622,8 +622,8 @@ function ToolPPTX(props) {
       specs.forEach(function(sp, i) {
         var col = i % 2; var row = Math.floor(i / 2);
         var x = col === 0 ? 0.35 : 3.95; var y = 1.05 + row * 1.65; var w = 3.4;
-        s3.addShape(pptx.ShapeType.rect, {x:x, y:y, w:w, h:1.4, fill:{color:"F5F2EC"}});
-        s3.addShape(pptx.ShapeType.rect, {x:x, y:y, w:0.06, h:1.4, fill:{color:CC.gold}});
+        s3.addShape("rect", {x:x, y:y, w:w, h:1.4, fill:{color:"F5F2EC"}});
+        s3.addShape("rect", {x:x, y:y, w:0.06, h:1.4, fill:{color:CC.gold}});
         s3.addText(sp.label, {x:x+0.15, y:y+0.12, w:w-0.2, h:0.3, fontSize:11, color:CC.gray, fontFace:"微軟正黑體"});
         s3.addText(sp.value, {x:x+0.15, y:y+0.45, w:w-0.2, h:0.6, fontSize:20, bold:true, color:CC.navy, fontFace:"微軟正黑體"});
       });
@@ -634,7 +634,7 @@ function ToolPPTX(props) {
       s4.background = {color: CC.navy};
       s4.addText("HIGHLIGHT", {x:0.35, y:0.3, w:3, h:0.35, fontSize:11, bold:true, color:CC.gold, charSpacing:3});
       s4.addText("「" + qClean + "」", {x:0.35, y:1.2, w:6.8, h:2.5, fontSize:28, bold:true, italic:true, color:CC.white, fontFace:"微軟正黑體"});
-      s4.addShape(pptx.ShapeType.rect, {x:0.35, y:5.5, w:1.2, h:0.06, fill:{color:CC.gold}});
+      s4.addShape("rect", {x:0.35, y:5.5, w:1.2, h:0.06, fill:{color:CC.gold}});
       s4.addText("有興趣了解更多？歡迎私訊", {x:0.35, y:5.7, w:6, h:0.35, fontSize:13, color:CC.white, fontFace:"微軟正黑體"});
       s4.addText("或加 LINE：" + (myLine || myPhone), {x:0.35, y:6.1, w:6, h:0.35, fontSize:13, color:CC.white, fontFace:"微軟正黑體"});
       s4.addText("我來為您安排帶看。", {x:0.35, y:6.5, w:6, h:0.35, fontSize:13, color:CC.white, fontFace:"微軟正黑體"});
@@ -644,7 +644,7 @@ function ToolPPTX(props) {
       var s5 = pptx.addSlide();
       s5.background = {color: CC.white};
       s5.addText("周邊生活機能", {x:0.35, y:0.2, w:5, h:0.6, fontSize:24, bold:true, color:CC.navy, fontFace:"微軟正黑體"});
-      s5.addShape(pptx.ShapeType.rect, {x:0.35, y:0.82, w:6.8, h:0.04, fill:{color:CC.gold}});
+      s5.addShape("rect", {x:0.35, y:0.82, w:6.8, h:0.04, fill:{color:CC.gold}});
       var cats = [
         {label:"交通", text:nearbyText["交通"] || "鄰近大眾交通"},
         {label:"學區", text:nearbyText["學區"] || "優質學區資源"},
@@ -653,7 +653,7 @@ function ToolPPTX(props) {
       ];
       cats.forEach(function(cat, i) {
         var y = 1.1 + i * 1.45;
-        s5.addShape(pptx.ShapeType.oval, {x:0.35, y:y, w:0.55, h:0.55, fill:{color:CC.navy}});
+        s5.addShape("ellipse", {x:0.35, y:y, w:0.55, h:0.55, fill:{color:CC.navy}});
         s5.addText(cat.label[0], {x:0.35, y:y, w:0.55, h:0.55, fontSize:11, color:CC.gold, align:"center", valign:"middle", bold:true});
         s5.addText(cat.label, {x:1.1, y:y+0.01, w:1.1, h:0.3, fontSize:14, bold:true, color:CC.navy, fontFace:"微軒正黑體"});
         s5.addText(cat.text, {x:2.5, y:y+0.01, w:4.6, h:0.5, fontSize:13, color:CC.gray, fontFace:"微軟正黑體"});
@@ -665,11 +665,11 @@ function ToolPPTX(props) {
       s6.background = {color: CC.white};
       var bk = CC.gold; var bW = 0.4; var bH = 0.4; var bT = 0.04;
       var corners = [[0.25,0.25,bW,bT],[0.25,0.25,bT,bH],[7.5-0.25-bW,0.25,bW,bT],[7.5-0.25-bT,0.25,bT,bH],[0.25,7.5-0.25-bT,bW,bT],[0.25,7.5-0.25-bH,bT,bH],[7.5-0.25-bW,7.5-0.25-bT,bW,bT],[7.5-0.25-bT,7.5-0.25-bH,bT,bH]];
-      corners.forEach(function(c) { s6.addShape(pptx.ShapeType.rect, {x:c[0], y:c[1], w:c[2], h:c[3], fill:{color:bk}}); });
+      corners.forEach(function(c) { s6.addShape("rect", {x:c[0], y:c[1], w:c[2], h:c[3], fill:{color:bk}}); });
       s6.addText("CONTACT", {x:0, y:1.8, w:7.5, h:0.45, fontSize:13, bold:true, color:CC.gold, align:"center", charSpacing:4});
       s6.addText("有任何問題", {x:0, y:2.5, w:7.5, h:0.8, fontSize:34, bold:true, color:CC.navy, align:"center", fontFace:"微軟正黑體"});
       s6.addText("歡迎直接找我", {x:0, y:3.3, w:7.5, h:0.8, fontSize:34, bold:true, color:CC.navy, align:"center", fontFace:"微軟正黑體"});
-      s6.addShape(pptx.ShapeType.rect, {x:3.3, y:4.2, w:0.9, h:0.06, fill:{color:CC.gold}});
+      s6.addShape("rect", {x:3.3, y:4.2, w:0.9, h:0.06, fill:{color:CC.gold}});
       s6.addText(myName, {x:0, y:4.5, w:7.5, h:0.55, fontSize:22, bold:true, color:CC.navy, align:"center", fontFace:"微軟正黑體"});
       s6.addText(myStore || "永慶不動產", {x:0, y:5.1, w:7.5, h:0.4, fontSize:13, color:CC.gray, align:"center", fontFace:"微軟正黑體"});
       s6.addText("📞  " + myPhone, {x:0, y:5.6, w:7.5, h:0.38, fontSize:13, color:CC.navy, align:"center", fontFace:"微軟正黑體"});
