@@ -271,7 +271,7 @@ function ToolLine(props) {
     var parsed = parseMsg(paste); setData(parsed);
     var prompt = "你是永慶不動產的房仲，根據以下物件資訊產出5條LINE群發亮點條列。\n物件：" + parsed.案名 + "\n地址：" + parsed.地址 + "\n格局：" + parsed.格局 + "\n坪數：總建" + parsed.總建 + "坪\n樓層：" + parsed.樓層 + "\n屋齡：" + parsed.屋齡 + "年\n售價：" + parsed.售價 + "\n規則：每條不超過28字，語氣精準簡潔，符合台灣房仲用語。只輸出5條純文字，每條一行，不加符號或編號。";
     try {
-      var res = await fetch("https://api.anthropic.com/v1/messages", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({model:"claude-sonnet-4-20250514", max_tokens:400, messages:[{role:"user", content:prompt}]})});
+      var res = await fetch("/api/claude", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({model:"claude-sonnet-4-20250514", max_tokens:400, messages:[{role:"user", content:prompt}]})});
       var json = await res.json();
       var lines = (json.content || []).map(function(b) { return b.text || ""; }).join("").split("\n").map(function(l) { return l.replace(/^[✅\-\d\.、]+/, "").trim(); }).filter(Boolean).slice(0, 5);
       setHighlights(lines);
@@ -443,7 +443,7 @@ function ToolCopywriter() {
     ];
     var prompt = parts.filter(Boolean).join("\n");
     try {
-      var res = await fetch("https://api.anthropic.com/v1/messages", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({model:"claude-sonnet-4-20250514", max_tokens:1000, messages:[{role:"user", content:prompt}]})});
+      var res = await fetch("/api/claude", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({model:"claude-sonnet-4-20250514", max_tokens:1000, messages:[{role:"user", content:prompt}]})});
       var data = await res.json();
       setResult((data.content || []).map(function(b) { return b.text || ""; }).join("") || "無法生成，請再試一次");
     } catch(e) { setResult("發生錯誤，請稍後再試"); }
@@ -551,7 +551,7 @@ function ToolPPTX(props) {
     if (!data) return; setAiLoading(true);
     try {
       var prompt = "你是高端房仲文案師。根據以下物件，寫一句20字以內的情境金句，用「」包起來，富有詩意。\n物件：" + data.案名 + "，" + data.格局 + "，" + data.總建 + "坪，" + data.地址 + "\n只輸出那一句金句。";
-      var res = await fetch("https://api.anthropic.com/v1/messages", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({model:"claude-sonnet-4-20250514", max_tokens:200, messages:[{role:"user", content:prompt}]})});
+      var res = await fetch("/api/claude", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({model:"claude-sonnet-4-20250514", max_tokens:200, messages:[{role:"user", content:prompt}]})});
       var json = await res.json();
       setQuote((json.content || []).map(function(b) { return b.text || ""; }).join("").trim() || "");
     } catch(e) { setQuote("「光與靜謐，是這個家最好的語言。」"); }
